@@ -1,0 +1,74 @@
+system WyvernsAssault/BloodLens
+{
+    technique Technique7
+    {
+        material                                Particle/BloodLens
+        renderer                                Billboard
+        {
+            render_queue_group                  90
+            billboard_rotation_type             vertex
+        }
+        emitter                                 Point Emitter8
+        {
+            emission_rate                       1
+            angle                               0
+            time_to_live                        dyn_random
+            {
+                min                             1.5
+                max                             1.75
+            }
+            velocity                            3
+            all_particle_dimensions             300
+            enabled                             false
+            direction                           0 -1 0
+            end_texture_coords_range            1
+            texture_coords                      1
+            force_emission                      true
+        }
+        affector                                Colour Affector19
+        {
+            time_colour                         0    1 1 1 0
+            time_colour                         0.05 1 1 1 0.72
+            time_colour                         0.7  1 1 1 0.686275
+            time_colour                         1    1 1 1 0
+        }
+        affector                                TextureRotator Affector20
+        {
+            rotation                            dyn_random
+            {
+                min                             0
+                max                             360
+            }
+            rotation_speed                      0
+        }
+        affector                                Scale Affector11
+        {
+            x_scale                             dyn_random
+            {
+                min                             1
+                max                             5
+            }
+            y_scale                             dyn_random
+            {
+                min                             10
+                max                             15
+            }
+        }
+        observer                                OnClear Observer4
+        {
+            handler                             DoStopSystem Handler5
+            {
+            }
+        }
+        observer                                OnTime Observer21
+        {
+            observe_particle_type               emitter_particle
+            handler                             DoEnableComponent Handler22
+            {
+                enable_component                emitter_component Emitter8 true
+            }
+            since_start_system                  true
+            on_time                             greater_than 0.5
+        }
+    }
+}

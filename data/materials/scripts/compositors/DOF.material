@@ -1,0 +1,43 @@
+fragment_program DOF_Blend_ps cg
+{
+	source DOF_FP.cg
+	entry_point blend
+	profiles ps_2_0 arbfp1
+}
+
+material Compositor/DOF_Blend
+{
+    technique
+    {
+        pass
+        {
+			fragment_program_ref DOF_Blend_ps
+			{
+			}
+			vertex_program_ref Compositor/StdQuad_Tex2a_vp
+			{
+			}
+            texture_unit Scene
+            {
+			    // texture will get added at runtime
+                tex_coord_set 0
+				tex_address_mode clamp
+				filtering trilinear
+            }
+            texture_unit Depth
+            {
+			    // texture will get added at runtime
+                tex_coord_set 0
+				tex_address_mode clamp
+				filtering trilinear
+            }			
+			texture_unit Blur
+            {
+			    // texture will get added at runtime
+                tex_coord_set 0
+				tex_address_mode clamp
+				filtering trilinear
+            }
+        }
+    }
+}

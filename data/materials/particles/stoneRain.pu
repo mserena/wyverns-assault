@@ -1,0 +1,95 @@
+system WyvernsAssault/StoneRain
+{
+    technique 
+    {
+        visual_particle_quota                   100
+        material                                VulcanicRock
+        renderer                                Entity
+        {
+            mesh_name                           BigRock1.mesh
+        }
+        emitter                                 Circle Emitter6
+        {
+            emission_rate                       dyn_random
+            {
+                min                             30
+                max                             35
+            }
+            angle                               dyn_random
+            {
+                min                             -20
+                max                             20
+            }
+            time_to_live                        dyn_random
+            {
+                min                             6
+                max                             8
+            }
+            velocity                            dyn_random
+            {
+                min                             50
+                max                             300
+            }
+            duration                            2
+            all_particle_dimensions             dyn_random
+            {
+                min                             5
+                max                             25
+            }
+            position                            0 300 0
+            direction                           0 -1 0
+            force_emission                      true
+            radius                              300
+            step                                10
+            emit_random                         false
+        }
+        affector                                GeometryRotator Affector13
+        {
+            rotation_axis                       1 0 1
+            rotation_speed                      dyn_random
+            {
+                min                             0.5
+                max                             3
+            }
+        }
+        affector                                BoxCollider Affector14
+        {
+            bouncyness                          0.2
+            intersection                        box
+            box_width                           1000
+            box_height                          1
+            box_depth                           1000
+        }
+        affector                                Gravity Affector39
+        {
+            position                            0 -750 0
+            gravity                             100000
+        }
+        affector                                BoxCollider Affector6
+        {
+            friction                            1
+            bouncyness                          0.5
+            intersection                        box
+            box_width                           350
+            box_height                          400
+            box_depth                           350
+        }
+        observer                                OnClear Observer3
+        {
+            observe_until_event                 true
+            handler                             DoStopSystem Handler5
+            {
+            }
+        }
+        observer                                OnTime Observer3
+        {
+            observe_until_event                 true
+            handler                             DoEnableComponent Handler4
+            {
+                enable_component                affector_component Affector13 false
+            }
+            since_start_system                  true
+            on_time                             greater_than 2.5
+        }
+    }
+}

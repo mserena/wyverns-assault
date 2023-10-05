@@ -1,0 +1,29 @@
+material Physics
+{
+	technique
+	{
+		pass
+		{
+			fog_override true none
+			lighting off
+			cull_hardware none
+			cull_software none			
+			polygon_mode wireframe
+		}
+	}
+}
+
+material physic_material
+{
+	technique
+	{
+		pass
+		{
+			fog_override true none
+			lighting off
+			cull_hardware none
+			cull_software none			
+			polygon_mode wireframe
+		}
+	}
+}

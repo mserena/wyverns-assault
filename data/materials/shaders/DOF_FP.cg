@@ -1,0 +1,23 @@
+// Blend original + depth + blur
+float4 blend
+(
+    in float2 texCoord: TEXCOORD0,
+
+    uniform sampler Scene : register(s0),
+    uniform sampler Depth : register(s1),
+	uniform sampler Blur : register(s2)
+	
+) : COLOR
+{
+	float4 FocalPlane = float4( 0.0f, 0.0f, 2.0f, -0.6f );
+
+	float4 sharp = tex2D(Scene, texCoord);
+	float4 blur  = tex2D(Blur, texCoord);
+	
+	// Depth RT has depth info in all chanels
+	float depthBlur = dot( tex2D(Depth, texCoord), FocalPlane);
+	
+	float4 final = lerp( sharp, blur, saturate(abs(depthBlur)) );
+	final.a = 1.0f;
+	return final;
+}
